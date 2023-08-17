@@ -1,0 +1,16 @@
+spring:
+  security:
+    connect_check_token_url:
+      - ${cj.geochat.connect_check_token_url:http://localhost:9000/oauth2/v1/check_token}
+    whitelist:
+      - /webjars/**
+      - /swagger-ui/**
+      - /v3/api-docs/**
+      - /doc.html**
+    staticlist:
+      - /**/*.js
+      - /**/*.css
+      - /**/*.ico
+      - /assets/**
+      - /css/**
+      - /images/**

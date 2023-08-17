@@ -1,0 +1,40 @@
+appdoc:
+  info:
+    title: 消息中心·发件
+    description: 转发各类消息
+    summary:
+    version: 1.0.0
+    contact:
+      name: cj 18023457655
+      email: zhaoxiangbin_2005@126.com
+      url:
+    license:
+      name:
+      identifier:
+      url:
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    #浏览器关闭是否保持认证的数据
+    persist-authorization: false
+  #有几个版本的api则在此配置几个组
+  group-configs:
+    - group: all-api
+      paths-to-match:
+        - /api/v1/**
+        - /api/v2/**
+    - group: v1-api
+      paths-to-match:
+        - /api/v1/**
+    - group: v2-api
+      paths-to-match:
+        - /api/v2/**
+#    disable-swagger-default-url: true
+# knife4j的增强配置，不需要增强可以不配
+# https://doc.xiaominfo.com/docs/quick-start
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn

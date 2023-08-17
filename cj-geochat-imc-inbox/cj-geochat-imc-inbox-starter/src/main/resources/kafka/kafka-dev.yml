@@ -1,0 +1,31 @@
+spring:
+  kafka:
+    # Kafka服务器
+    bootstrap-servers: ${cj.kafka.bootstrap-servers:geochat-ecs.local:9082,geochat-ecs.local:9083,geochat-ecs.local:9084}
+    listener:
+      concurrency: 5 # 指定listener 容器中的线程数，用于提高并发量
+      ack-mode: manual
+    template:
+      default-topic: inbox
+    producer:
+      # 开启事务，必须在开启了事务的方法中发送，否则报错
+#      transaction-id-prefix: ${cj.kafka.transaction-id-prefix:kafkaTx-}
+      # 发生错误后，消息重发的次数，开启事务必须设置大于0。
+      retries: ${cj.kafka.retries:3}
+      # acks=0 ： 生产者在成功写入消息之前不会等待任何来自服务器的响应。
+      # acks=1 ： 只要集群的首领节点收到消息，生产者就会收到一个来自服务器成功响应。
+      # acks=all ：只有当所有参与复制的节点全部收到消息时，生产者才会收到一个来自服务器的成功响应。
+      # 开启事务时，必须设置为all
+      acks: ${cj.kafka.acks:all}
+      # 当有多个消息需要被发送到同一个分区时，生产者会把它们放在同一个批次里。该参数指定了一个批次可以使用的内存大小，按照字节数计算。
+      batch-size: ${cj.kafka.batch-size:16384}
+      # 生产者内存缓冲区的大小。
+      buffer-memory: ${cj.kafka.buffer-memory:1024000}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+inbox:
+  topic:
+    name: ${cj.kafka.inbox.topic.name:inbox}
+    numPartitions: ${cj.kafka.inbox.topic.numPartitions:5}
+    replicationFactor: ${cj.kafka.inbox.topic.replicationFactor:2}

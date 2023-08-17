@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-comet-master/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-comet/cj-geochat-imc-comet-framework/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-comet/cj-geochat-imc-comet-framework/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-comet/cj-geochat-imc-comet-remote/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-comet/cj-geochat-imc-comet-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-comet/cj-geochat-imc-comet-starter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-comet/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-comet/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-inbox/cj-geochat-imc-inbox-framework/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-inbox/cj-geochat-imc-inbox-framework/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-inbox/cj-geochat-imc-inbox-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-inbox/cj-geochat-imc-inbox-starter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-inbox/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-inbox/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-master/cj-geochat-imc-master-framework/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-master/cj-geochat-imc-master-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-master/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-master/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-outbox/cj-geochat-imc-outbox-framework/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-outbox/cj-geochat-imc-outbox-framework/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-outbox/cj-geochat-imc-outbox-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-outbox/cj-geochat-imc-outbox-starter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-outbox/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-outbox/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-postbox/cj-geochat-imc-postbox-framework/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-postbox/cj-geochat-imc-postbox-framework/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-postbox/cj-geochat-imc-postbox-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-postbox/cj-geochat-imc-postbox-starter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-postbox/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cj-geochat-imc-postbox/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

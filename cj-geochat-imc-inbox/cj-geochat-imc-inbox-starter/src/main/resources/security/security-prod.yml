@@ -1,0 +1,15 @@
+spring:
+  security:
+    whitelist:
+      - /api/v*/public/**
+      - /webjars/**
+      - /swagger-ui/**
+      - /v3/api-docs/**
+      - /doc.html**
+    staticlist:
+      - /**/*.js
+      - /**/*.css
+      - /**/*.ico
+      - /assets/**
+      - /css/**
+      - /images/**

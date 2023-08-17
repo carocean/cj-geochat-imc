@@ -1,0 +1,44 @@
+spring:
+  kafka:
+    # Kafka服务器
+    bootstrap-servers: ${cj.kafka.bootstrap-servers:geochat-ecs.local:9082,geochat-ecs.local:9083,geochat-ecs.local:9084}
+    listener:
+      concurrency: 5 # 指定listener 容器中的线程数，用于提高并发量
+      ack-mode: manual
+    template:
+      default-topic: offline-topic
+    producer:
+      # 开启事务，必须在开启了事务的方法中发送，否则报错
+      transaction-id-prefix: ${cj.kafka.transaction-id-prefix:kafkaTx-}
+      # 发生错误后，消息重发的次数，开启事务必须设置大于0。
+      retries: ${cj.kafka.retries:3}
+      # acks=0 ： 生产者在成功写入消息之前不会等待任何来自服务器的响应。
+      # acks=1 ： 只要集群的首领节点收到消息，生产者就会收到一个来自服务器成功响应。
+      # acks=all ：只有当所有参与复制的节点全部收到消息时，生产者才会收到一个来自服务器的成功响应。
+      # 开启事务时，必须设置为all
+      acks: ${cj.kafka.acks:all}
+      # 当有多个消息需要被发送到同一个分区时，生产者会把它们放在同一个批次里。该参数指定了一个批次可以使用的内存大小，按照字节数计算。
+      batch-size: ${cj.kafka.batch-size:16384}
+      # 生产者内存缓冲区的大小。
+      buffer-memory: ${cj.kafka.buffer-memory:1024000}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+#      group-id: inbox_group # 由于收件只需要单播，因此设一个单播组
+      #一定要指定clientid前缀，否则会报已存在实现的警告。而且光在此指定还不行，在消费者声明的注解中必须指定客户端前缀且多个消费者不行相同
+#      client-id: inbox
+      max-poll-records: 200
+      auto-offset-reset: earliest # 最早未被消费的offset
+      enable-auto-commit: false
+      auto-commit-interval: 5000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      #      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+comet:
+  offline-topic:
+    name: ${cj.kafka.comet.topic.name:offline}
+    numPartitions: ${cj.kafka.comet.topic.numPartitions:5}
+    replicationFactor: ${cj.kafka.comet.topic.replicationFactor:2}
+  consumers:
+    topics: outbox-0,outbox-1
