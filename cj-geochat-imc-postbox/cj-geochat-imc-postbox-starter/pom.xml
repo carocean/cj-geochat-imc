@@ -49,6 +49,10 @@
         </dependency>
         <dependency>
             <groupId>cj.geochat</groupId>
+            <artifactId>cj-geochat-imc-postbox-remote</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cj.geochat</groupId>
             <artifactId>cj-geochat-imc-postbox-framework</artifactId>
         </dependency>
     </dependencies>

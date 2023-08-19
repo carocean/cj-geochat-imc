@@ -15,7 +15,19 @@ public class CometEndpointContainer implements ICometEndpointContainer {
     private Map<String, List<ICometEndpoint>> indexCometEndpointsOfUser = new ConcurrentHashMap<>();
     private Map<String, List<ICometEndpoint>> indexCometEndpointsOfAccount = new ConcurrentHashMap<>();
     private Map<String, List<ICometEndpoint>> indexCometEndpointsOfAppId = new ConcurrentHashMap<>();
+    @Override
+    public String[] enumOnlineApp(){
+        return indexCometEndpointsOfAppId.keySet().toArray(new String[0]);
+    }
+    @Override
+    public String[] enumOnlineUser() {
+        return indexCometEndpointsOfUser.keySet().toArray(new String[0]);
+    }
 
+    @Override
+    public List<ICometEndpoint> allCometEndpoint() {
+        return cometEndpoints.stream().toList();
+    }
 
     @Override
     public void onopen(ICometEndpoint cometEndpoint) {
@@ -64,16 +76,19 @@ public class CometEndpointContainer implements ICometEndpointContainer {
 
     @Override
     public List<ICometEndpoint> findCometEndpointByUser(String user) {
-        return indexCometEndpointsOfUser.get(user);
+        var list= indexCometEndpointsOfUser.get(user);
+        return list == null ? new ArrayList<>() : list;
     }
 
     @Override
     public List<ICometEndpoint> findCometEndpointByAccount(String account) {
-        return indexCometEndpointsOfAccount.get(account);
+        var list= indexCometEndpointsOfAccount.get(account);
+        return list == null ? new ArrayList<>() : list;
     }
 
     @Override
     public List<ICometEndpoint> findCometEndpointByAppId(String appid) {
-        return indexCometEndpointsOfAppId.get(appid);
+        var list= indexCometEndpointsOfAppId.get(appid);
+        return list == null ? new ArrayList<>() : list;
     }
 }

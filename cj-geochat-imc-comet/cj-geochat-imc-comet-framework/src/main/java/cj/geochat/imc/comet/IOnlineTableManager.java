@@ -7,4 +7,6 @@ public interface IOnlineTableManager {
 
     void offline(ICometEndpoint cometEndpoint);
 
+    boolean isOnline(String user);
+
 }

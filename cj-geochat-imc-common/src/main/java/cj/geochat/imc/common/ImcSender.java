@@ -12,6 +12,12 @@ public class ImcSender {
         this.type = type;
     }
 
+    public static ImcSender toSender(String appId, String user, String account) {
+        String sender = String.format("%s/%s#%s", appId, user, account);
+        String type = "principal";
+        return new ImcSender(sender, type);
+    }
+
     public static ImcSender parse(String senderSeg) {
         int pos = senderSeg.indexOf(".");
         if (pos < 0) {
@@ -27,16 +33,71 @@ public class ImcSender {
         return sender;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public String toDescriptor() {
+        return String.format("%s.%s", sender, type);
+    }
+
+    public boolean isPrincipalType() {
+        return "principal".equals(type);
+    }
+
+    public String appIdInPrincipal() {
+        if (isPrincipalType()) {
+            return null;
+        }
+        int pos = sender.indexOf("/");
+        if (pos < 0) {
+            return sender;
+        }
+        String appId = sender.substring(0, pos);
+        return appId;
+    }
+
+    public String userInPrincipal() {
+        if (isPrincipalType()) {
+            return null;
+        }
+        int pos = sender.indexOf("/");
+        if (pos < 0) {
+            return sender;
+        }
+        String remaining = sender.substring(pos + 1);
+        while (remaining.startsWith("/")) {
+            remaining = remaining.substring(1);
+        }
+        pos = remaining.indexOf("#");
+        if (pos < 0) {
+            return remaining;
+        }
+        String user = remaining.substring(0, pos);
+        return user;
+    }
+
+    public String accountInPrincipal() {
+        if (isPrincipalType()) {
+            return null;
+        }
+        int pos = sender.indexOf("/");
+        if (pos < 0) {
+            return sender;
+        }
+        String remaining = sender.substring(pos + 1);
+        while (remaining.startsWith("/")) {
+            remaining = remaining.substring(1);
+        }
+        pos = remaining.indexOf("#");
+        if (pos < 0) {
+            return remaining;
+        }
+        String account = remaining.substring(pos + 1);
+        while (account.startsWith("#")) {
+            account = account.substring(1);
+        }
+        return account;
     }
 
     @Override

@@ -97,7 +97,7 @@ public final class ImcFrame implements Externalizable {
 
     public String parameter(String key) {
         UriComponents uri = UriComponentsBuilder.fromUriString(uri()).build();
-        return uri.getQueryParams().get(key).stream().findFirst().orElse(null);
+        return uri.getQueryParams().getFirst(key);
     }
 
     public String[] enumParameter() {
@@ -146,6 +146,22 @@ public final class ImcFrame implements Externalizable {
 
     public ImcSender sender() {
         return FrameParser.parseSender(host());
+    }
+
+    public void sender(ImcSender sender) {
+        sender(sender.sender, sender.type);
+    }
+    public void sender(String sender, String type) {
+        String host = head.get("Host");
+        int pos = host.indexOf("@");
+        String newHost = "";
+        if (pos < 0) {
+            newHost = String.format("%s.%s@%s", sender, type, host);
+        } else {
+            String remaining = host.substring(pos + 1);
+            newHost = String.format("%s.%s@%s", sender, type, remaining);
+        }
+        head.put("Host", newHost);
     }
 
     public String recipients() {
@@ -284,5 +300,36 @@ public final class ImcFrame implements Externalizable {
     @Override
     public String toString() {
         return toText();
+    }
+
+    public boolean inRejects(String user) {
+        String[] rejects = this.rejectsToList();
+        for (String reject : rejects) {
+            if ("*".equals(reject)) {
+                return true;
+            }
+            if (reject.equals(user)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean inRecipients(String user) {
+        String[] recipients = this.recipientsToList();
+        //默认是充许所有，等同于*
+        if (recipients.length == 0) {
+            return true;
+        }
+        //如果指定了用户则仅限定为充许的用户
+        for (String recipient : recipients) {
+            if ("*".equals(recipient)) {
+                return true;
+            }
+            if (recipient.equals(user)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

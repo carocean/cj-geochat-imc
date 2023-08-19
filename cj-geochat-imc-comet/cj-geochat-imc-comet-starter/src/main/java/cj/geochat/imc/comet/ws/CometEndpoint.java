@@ -3,6 +3,7 @@ package cj.geochat.imc.comet.ws;
 import cj.geochat.ability.oauth.app.principal.DefaultAppPrincipal;
 import cj.geochat.imc.comet.config.OpenWebsocketConfig;
 import cj.geochat.imc.common.ImcFrame;
+import cj.geochat.imc.common.ImcSender;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
 import lombok.extern.slf4j.Slf4j;
@@ -66,6 +67,7 @@ public class CometEndpoint implements ApplicationContextAware, ICometEndpoint {
 
     @OnClose
     public void onClose() {
+        SecurityContextHolder.clearContext();
         try {
             cometServiceFactory.lineEventService().offline(sessionId());
             cometServiceFactory.endpointContainer().onclose(this);
@@ -79,6 +81,9 @@ public class CometEndpoint implements ApplicationContextAware, ICometEndpoint {
     public void onMessage(String message) {
         try {
             ImcFrame frame = ImcFrame.fromText(message);
+            DefaultAppPrincipal principal = principal();
+            ImcSender sender = ImcSender.toSender(principal.getAppid(), principal.getName(), principal.getAccount());
+            frame.sender(sender);
             cometServiceFactory.messageService().onmessage(sessionId(), frame);
         } catch (Throwable throwable) {
             log.error("onMessage", throwable);

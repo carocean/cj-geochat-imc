@@ -48,4 +48,4 @@ app:
             master:
               url: localhost:21700
           soc:
-            url: localhost:12120
+            url: geochat-ecs.local:12120

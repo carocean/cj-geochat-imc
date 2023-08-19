@@ -6,6 +6,12 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ICometEndpointContainer {
+    String[] enumOnlineApp();
+
+    String[] enumOnlineUser();
+
+    List<ICometEndpoint> allCometEndpoint();
+
     void onopen(ICometEndpoint cometEndpoint);
 
     void onclose(ICometEndpoint cometEndpoint);

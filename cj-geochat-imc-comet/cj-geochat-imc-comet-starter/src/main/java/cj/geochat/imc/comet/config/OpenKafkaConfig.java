@@ -2,7 +2,6 @@ package cj.geochat.imc.comet.config;
 
 import cj.geochat.ability.kafka.annotation.EnableCjKafka;
 import cj.geochat.imc.comet.ICometConsumerFactory;
-import cj.geochat.imc.comet.IOutboxService;
 import cj.geochat.imc.comet.consumer.OutboxConsumer;
 import com.github.f4b6a3.ulid.UlidCreator;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -26,8 +25,15 @@ public class OpenKafkaConfig {
     @Value("${comet.offline-topic.replicationFactor}")
     short offlineReplicationFactor;
 
-    @Value("${comet.consumers.topics}")
-    String[] outboxTopicNames;
+    @Value("${comet.event-topic.name}")
+    String eventTopicName;
+    @Value("${comet.event-topic.numPartitions}")
+    int eventNumPartitions;
+    @Value("${comet.event-topic.replicationFactor}")
+    short eventReplicationFactor;
+
+    @Value("${comet.connect-outbox-topic}")
+    String outboxTopicName;
 
     @Bean
     public NewTopic offline() {
@@ -35,21 +41,23 @@ public class OpenKafkaConfig {
     }
 
     @Bean
+    public NewTopic event() {
+        return new NewTopic(eventTopicName, eventNumPartitions, eventReplicationFactor);
+    }
+
+    @Bean
     public ICometConsumerFactory createCometConsumerFactory(
             ConcurrentKafkaListenerContainerFactory<String, String> factory,
-            ConfigurableApplicationContext applicationContext,
-            IOutboxService outboxService) {
+            ConfigurableApplicationContext applicationContext) {
         List<ConcurrentMessageListenerContainer<String, String>> containers = new ArrayList<>();
-        for (String topic : outboxTopicNames) {
-            String group = "outbox-0-" + UlidCreator.getUlid().toLowerCase() + "_group";
-            ConcurrentMessageListenerContainer<String, String> container = factory.createContainer(topic);
-            container.getContainerProperties().setMessageListener(new OutboxConsumer(outboxService));
-            container.getContainerProperties().setGroupId(group);
-            container.setBeanName(group);
-            container.start();
-            containers.add(container);
-            applicationContext.getBeanFactory().registerSingleton(group, container);
-        }
+        String group = "outbox-0-" + UlidCreator.getUlid().toLowerCase() + "_group";
+        ConcurrentMessageListenerContainer<String, String> container = factory.createContainer(outboxTopicName);
+        container.getContainerProperties().setMessageListener(new OutboxConsumer(applicationContext));
+        container.getContainerProperties().setGroupId(group);
+        container.setBeanName(group);
+        container.start();
+        containers.add(container);
+        applicationContext.getBeanFactory().registerSingleton(group, container);
         return (c -> {
             c.customize(containers);
         });

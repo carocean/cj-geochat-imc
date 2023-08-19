@@ -1,7 +1,10 @@
 package cj.geochat.imc.inbox.rest;
 
 import cj.geochat.ability.api.annotation.ApiResult;
+import cj.geochat.ability.oauth.app.principal.DefaultAppAuthentication;
+import cj.geochat.ability.oauth.app.principal.DefaultAppPrincipal;
 import cj.geochat.imc.common.ImcFrame;
+import cj.geochat.imc.common.ImcSender;
 import cj.geochat.imc.inbox.service.IInboxService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Enumeration;
@@ -50,6 +54,10 @@ public class InboxApi implements IInboxApi {
             head.put(k, v);
         }
         var frame = ImcFrame.create(line, host, head, body);
+        DefaultAppAuthentication authentication = (DefaultAppAuthentication) SecurityContextHolder.getContext().getAuthentication();
+        DefaultAppPrincipal principal = (DefaultAppPrincipal) authentication.getPrincipal();
+        ImcSender sender = ImcSender.toSender(principal.getAppid(), principal.getName(), principal.getAccount());
+        frame.sender(sender);
         inboxService.inbox(frame);
     }
 
@@ -64,6 +72,10 @@ public class InboxApi implements IInboxApi {
             String frameRaw
     ) {
         var frame = ImcFrame.fromText(frameRaw);
+        DefaultAppAuthentication authentication = (DefaultAppAuthentication) SecurityContextHolder.getContext().getAuthentication();
+        DefaultAppPrincipal principal = (DefaultAppPrincipal) authentication.getPrincipal();
+        ImcSender sender = ImcSender.toSender(principal.getAppid(), principal.getName(), principal.getAccount());
+        frame.sender(sender);
         inboxService.inbox(frame);
     }
 }

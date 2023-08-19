@@ -9,7 +9,7 @@ spring:
       default-topic: offline-topic
     producer:
       # 开启事务，必须在开启了事务的方法中发送，否则报错
-      transaction-id-prefix: ${cj.kafka.transaction-id-prefix:kafkaTx-}
+#      transaction-id-prefix: ${cj.kafka.transaction-id-prefix:kafkaTx-}
       # 发生错误后，消息重发的次数，开启事务必须设置大于0。
       retries: ${cj.kafka.retries:3}
       # acks=0 ： 生产者在成功写入消息之前不会等待任何来自服务器的响应。
@@ -37,8 +37,11 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 comet:
   offline-topic:
-    name: ${cj.kafka.comet.topic.name:offline}
-    numPartitions: ${cj.kafka.comet.topic.numPartitions:5}
-    replicationFactor: ${cj.kafka.comet.topic.replicationFactor:2}
-  consumers:
-    topics: outbox-0,outbox-1
+    name: ${cj.kafka.comet.offline-topic.name:offline}
+    numPartitions: ${cj.kafka.comet.offline-topic.numPartitions:5}
+    replicationFactor: ${cj.kafka.comet.offline-topic.replicationFactor:2}
+  event-topic:
+    name: ${cj.kafka.comet.event-topic.name:event}
+    numPartitions: ${cj.kafka.comet.event-topic.numPartitions:5}
+    replicationFactor: ${cj.kafka.comet.event-topic.replicationFactor:2}
+  connect-outbox-topic: ${cj.kafka.comet.connect-outbox-topic:outbox-0}
