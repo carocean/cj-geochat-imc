@@ -15,7 +15,7 @@ imc消息的发送和消费者可以是会话、设备、用户、登录账户�
 >
 > 通过扩展comet扩大客户端接入数量，和针对outbox的处理能力  
 
-[如图](https://github.com/carocean/cj-geochat-imc/blob/main/doc/pics/architecture_diagram.png)
+![如图](https://github.com/carocean/cj-geochat-imc/blob/main/doc/pics/architecture_diagram.png)
 
 # 依赖
 > geochat认证中心  
