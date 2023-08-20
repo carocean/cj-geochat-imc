@@ -38,7 +38,7 @@ eureka:
     hostname: ${cj.geochat.hostname:localhost}
 comet:
   master:
-    node: ws://localhost:21700/ws/v1/master
+    node: ${cj.comet.master.node.ws:"ws://localhost:21700/ws/v1/master"}
 app:
   test:
     feign:
@@ -47,5 +47,7 @@ app:
           imc:
             master:
               url: localhost:21700
+            postbox:
+              url: localhost:21600
           soc:
             url: geochat-ecs.local:12120

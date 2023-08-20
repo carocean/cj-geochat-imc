@@ -26,7 +26,7 @@ public class AppChannelDistributor implements IChannelDistributor {
             if (frame.inRejects(user)) {
                 continue;
             }
-            if (frame.inRecipients(user)) {
+            if (!frame.inRecipients(user)) {
                continue;
             }
             cometEndpoint.send(frame.copy());

@@ -9,7 +9,7 @@ spring:
       default-topic: inbox
     producer:
       # 开启事务，必须在开启了事务的方法中发送，否则报错
-#      transaction-id-prefix: ${cj.kafka.transaction-id-prefix:kafkaTx-}
+      #      transaction-id-prefix: ${cj.kafka.transaction-id-prefix:kafkaTx-}
       # 发生错误后，消息重发的次数，开启事务必须设置大于0。
       retries: ${cj.kafka.retries:3}
       # acks=0 ： 生产者在成功写入消息之前不会等待任何来自服务器的响应。
@@ -22,7 +22,7 @@ spring:
       # 生产者内存缓冲区的大小。
       buffer-memory: ${cj.kafka.buffer-memory:1024000}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-        #      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      #      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 inbox:
   topic:

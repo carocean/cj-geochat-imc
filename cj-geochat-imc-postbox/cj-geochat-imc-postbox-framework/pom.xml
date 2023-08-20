@@ -16,6 +16,16 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>cj.geochat</groupId>
+            <artifactId>cj-geochat-imc-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cj.geochat</groupId>
+            <artifactId>cj-geochat-ability-mongodb</artifactId>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

@@ -26,6 +26,11 @@
     <dependencies>
         <dependency>
             <groupId>cj.geochat</groupId>
+            <artifactId>cj-geochat-imc-common</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cj.geochat</groupId>
             <artifactId>cj-geochat-soc-framework</artifactId>
             <version>1.0.0</version>
         </dependency>

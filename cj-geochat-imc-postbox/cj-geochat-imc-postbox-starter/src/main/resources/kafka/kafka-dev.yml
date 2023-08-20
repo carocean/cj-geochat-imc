@@ -1,0 +1,27 @@
+spring:
+  kafka:
+    # Kafka服务器
+    bootstrap-servers: ${cj.kafka.bootstrap-servers:geochat-ecs.local:9082,geochat-ecs.local:9083,geochat-ecs.local:9084}
+    listener:
+      concurrency: 5 # 指定listener 容器中的线程数，用于提高并发量
+      ack-mode: manual
+    template:
+      default-topic: event
+    consumer:
+      #      group-id: inbox_group # 由于收件只需要单播，因此设一个单播组
+      #一定要指定clientid前缀，否则会报已存在实现的警告。而且光在此指定还不行，在消费者声明的注解中必须指定客户端前缀且多个消费者不行相同
+      #      client-id: inbox
+      max-poll-records: 200
+      auto-offset-reset: earliest # 最早未被消费的offset
+      enable-auto-commit: false
+      auto-commit-interval: 5000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      #      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+postbox:
+  topic-config:
+    numPartitions: ${cj.kafka.topic-config.numPartitions:5}
+    replicationFactor: ${cj.kafka.topic-config.replicationFactor:2}
+  consumer:
+    event: ${cj.kafka.consumer.event:event}
+    offline: ${cj.kafka.consumer.offline:offline}

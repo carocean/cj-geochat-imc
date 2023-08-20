@@ -17,6 +17,9 @@ imc消息的发送和消费可以是会话、设备、用户、登录账户等�
 
 ![如图](https://github.com/carocean/cj-geochat-imc/blob/main/doc/pics/architecture_diagram.png)
 
+- 运行时
+![如图](https://github.com/carocean/cj-geochat-imc/blob/main/doc/pics/runtime_dockers.png)
 # 依赖
 > geochat认证中心  
 > geochat网关  
+> soc社会关系及地理关系中心  

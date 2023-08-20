@@ -135,8 +135,29 @@
                     <!--此处定义的值是dockerfile运行时的默认值，在用docker-compose或run启动时可通过-e参数覆盖掉-->
                     <env>
                         <cj.geochat.spring.profiles.active>prod</cj.geochat.spring.profiles.active>
-                        <cj.geochat.EUREKA_SERVER_URL>http://geochat-ecs.local:8761/eureka</cj.geochat.EUREKA_SERVER_URL>
-                        <cj.geochat.connect_check_token_url>http://localhost:8080/oauth2/v1/check_token</cj.geochat.connect_check_token_url>
+                        <cj.geochat.project.name>cj-geochat-imc-comet</cj.geochat.project.name>
+                        <cj.geochat.EUREKA_SERVER_URL>http://geochat-ecs.local:8761/eureka
+                        </cj.geochat.EUREKA_SERVER_URL>
+                        <cj.geochat.connect_check_token_url>http://oauth2-server:9000/oauth2/v1/check_token
+                        </cj.geochat.connect_check_token_url>
+                        <cj.geochat.spring.redis.db>0</cj.geochat.spring.redis.db>
+                        <cj.geochat.spring.redis.sentinel.master>local-master</cj.geochat.spring.redis.sentinel.master>
+                        <cj.geochat.spring.redis.sentinel.nodes>
+                            redis-server-master:26379,redis-server-slave-1:26379,redis-server-slave-2:26379
+                        </cj.geochat.spring.redis.sentinel.nodes>
+                        <cj.geochat.spring.redis.password>123456</cj.geochat.spring.redis.password>
+                        <cj.kafka.bootstrap-servers>
+                            geochat-ecs.local:9082,geochat-ecs.local:9083,geochat-ecs.local:9084
+                        </cj.kafka.bootstrap-servers>
+                        <cj.comet.master.node.ws>ws://imc-master:21700/ws/v1/master</cj.comet.master.node.ws>
+                        <cj.kafka.comet.offline-topic.name>offline</cj.kafka.comet.offline-topic.name>
+                        <cj.kafka.comet.offline-topic.numPartitions>5</cj.kafka.comet.offline-topic.numPartitions>
+                        <cj.kafka.comet.offline-topic.replicationFactor>2
+                        </cj.kafka.comet.offline-topic.replicationFactor>
+                        <cj.kafka.comet.event-topic.name>event</cj.kafka.comet.event-topic.name>
+                        <cj.kafka.comet.event-topic.numPartitions>5</cj.kafka.comet.event-topic.numPartitions>
+                        <cj.kafka.comet.event-topic.replicationFactor>2</cj.kafka.comet.event-topic.replicationFactor>
+                        <cj.kafka.comet.connect-outbox-topic>outbox-0</cj.kafka.comet.connect-outbox-topic>
                     </env>
                     <!--指定远程 docker api地址 远程仓库-->
                     <!--                    <dockerHost>http://localhost:2375</dockerHost>-->

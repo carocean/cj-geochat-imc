@@ -114,8 +114,17 @@
                     <!--docker的环境变量模拟在docker run 命令于中输入 -e 变量名-->
                     <!--此处定义的值是dockerfile运行时的默认值，在用docker-compose或run启动时可通过-e参数覆盖掉-->
                     <env>
+                        <cj.geochat.project.name>cj-geochat-imc-outbox</cj.geochat.project.name>
                         <cj.geochat.spring.profiles.active>prod</cj.geochat.spring.profiles.active>
                         <cj.geochat.EUREKA_SERVER_URL>http://geochat-ecs.local:8761/eureka</cj.geochat.EUREKA_SERVER_URL>
+                        <cj.kafka.bootstrap-servers>geochat-ecs.local:9082,geochat-ecs.local:9083,geochat-ecs.local:9084</cj.kafka.bootstrap-servers>
+                        <cj.kafka.inbox.topic.name>inbox</cj.kafka.inbox.topic.name>
+                        <cj.kafka.inbox.topic.numPartitions>5</cj.kafka.inbox.topic.numPartitions>
+                        <cj.kafka.inbox.topic.replicationFactor>2</cj.kafka.inbox.topic.replicationFactor>
+                        <cj.kafka.outbox.topics.named-prefix>outbox-</cj.kafka.outbox.topics.named-prefix>
+                        <cj.kafka.outbox.topics.topic-count>2</cj.kafka.outbox.topics.topic-count>
+                        <cj.kafka.outbox.topics.numPartitions>5</cj.kafka.outbox.topics.numPartitions>
+                        <cj.kafka.outbox.topics.replicationFactor>2</cj.kafka.outbox.topics.replicationFactor>
                     </env>
                     <!--指定远程 docker api地址 远程仓库-->
                     <!--                    <dockerHost>http://localhost:2375</dockerHost>-->

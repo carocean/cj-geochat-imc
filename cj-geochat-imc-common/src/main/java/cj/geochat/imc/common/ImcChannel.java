@@ -16,9 +16,9 @@ public class ImcChannel {
         ImcChannel ch = new ImcChannel();
         int pos = channelSeg.indexOf(".");
         if (pos < 0) {
-            ch.channel=channelSeg;
+            ch.channel = channelSeg;
             ch.type = "chat";
-        }else{
+        } else {
             ch.channel = channelSeg.substring(0, pos);
             ch.type = channelSeg.substring(pos + 1);
         }
@@ -40,6 +40,11 @@ public class ImcChannel {
     public void setType(String type) {
         this.type = type;
     }
+
+    public boolean equals(String type, String channel) {
+        return this.type.equals(type) && this.channel.equals(channel);
+    }
+
 
     @Override
     public String toString() {

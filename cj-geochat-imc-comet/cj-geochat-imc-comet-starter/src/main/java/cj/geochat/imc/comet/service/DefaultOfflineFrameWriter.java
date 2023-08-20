@@ -24,6 +24,7 @@ public class DefaultOfflineFrameWriter implements IOfflineFrameWriter {
         if (onlineTableManager.isOnline(user)) {
             return;
         }
+        frame.header("Offline-User",user);
         kafkaTemplate.send(offlineTopicName, user, frame.toText());
     }
 }

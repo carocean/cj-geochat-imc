@@ -46,7 +46,7 @@ public class ImcSender {
     }
 
     public String appIdInPrincipal() {
-        if (isPrincipalType()) {
+        if (!isPrincipalType()) {
             return null;
         }
         int pos = sender.indexOf("/");
@@ -58,7 +58,7 @@ public class ImcSender {
     }
 
     public String userInPrincipal() {
-        if (isPrincipalType()) {
+        if (!isPrincipalType()) {
             return null;
         }
         int pos = sender.indexOf("/");
@@ -78,7 +78,7 @@ public class ImcSender {
     }
 
     public String accountInPrincipal() {
-        if (isPrincipalType()) {
+        if (!isPrincipalType()) {
             return null;
         }
         int pos = sender.indexOf("/");
@@ -100,6 +100,10 @@ public class ImcSender {
         return account;
     }
 
+    public String tryGetUser() {
+        String user = isPrincipalType() ? userInPrincipal() : getSender();
+        return user;
+    }
     @Override
     public String toString() {
         return "ImcSender{" +
@@ -107,4 +111,5 @@ public class ImcSender {
                 ", type='" + type + '\'' +
                 '}';
     }
+
 }

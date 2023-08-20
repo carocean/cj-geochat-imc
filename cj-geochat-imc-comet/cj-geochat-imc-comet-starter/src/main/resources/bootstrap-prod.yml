@@ -37,3 +37,7 @@ eureka:
     #注册中心点状态跳转到swagger
     status-page-url: http://geochat-ecs.local:${server.port}${server.servlet.context-path}doc.html
     hostname: ${cj.geochat.hostname:localhost}
+
+comet:
+  master:
+    node: ${cj.comet.master.node.ws:"ws://imc-master:21700/ws/v1/master"}

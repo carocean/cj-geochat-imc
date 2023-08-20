@@ -49,6 +49,10 @@
         </dependency>
         <dependency>
             <groupId>cj.geochat</groupId>
+            <artifactId>cj-geochat-ability-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cj.geochat</groupId>
             <artifactId>cj-geochat-imc-postbox-remote</artifactId>
         </dependency>
         <dependency>
@@ -118,8 +122,17 @@
                     <!--docker的环境变量模拟在docker run 命令于中输入 -e 变量名-->
                     <!--此处定义的值是dockerfile运行时的默认值，在用docker-compose或run启动时可通过-e参数覆盖掉-->
                     <env>
+                        <cj.geochat.project.name>cj-geochat-imc-postbox</cj.geochat.project.name>
                         <cj.geochat.spring.profiles.active>prod</cj.geochat.spring.profiles.active>
-                        <cj.geochat.EUREKA_SERVER_URL>http://geochat-ecs.local:8761/eureka</cj.geochat.EUREKA_SERVER_URL>
+                        <cj.geochat.EUREKA_SERVER_URL>http://geochat-ecs.local:8761/eureka
+                        </cj.geochat.EUREKA_SERVER_URL>
+                        <cj.geochat.MONGODB_URL>mongodb://superadmin:123456@geochat-ecs.local:27017/soc
+                        </cj.geochat.MONGODB_URL>
+                        <cj.kafka.bootstrap-servers>geochat-ecs.local:9082,geochat-ecs.local:9083,geochat-ecs.local:9084</cj.kafka.bootstrap-servers>
+                        <cj.kafka.topic-config.numPartitions>5</cj.kafka.topic-config.numPartitions>
+                        <cj.kafka.topic-config.replicationFactor>2</cj.kafka.topic-config.replicationFactor>
+                        <cj.kafka.consumer.event>event</cj.kafka.consumer.event>
+                        <cj.kafka.consumer.offline>offline</cj.kafka.consumer.offline>
                     </env>
                     <!--指定远程 docker api地址 远程仓库-->
                     <!--                    <dockerHost>http://localhost:2375</dockerHost>-->

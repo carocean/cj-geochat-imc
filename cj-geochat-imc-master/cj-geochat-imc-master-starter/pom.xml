@@ -113,8 +113,15 @@
                     <!--docker的环境变量模拟在docker run 命令于中输入 -e 变量名-->
                     <!--此处定义的值是dockerfile运行时的默认值，在用docker-compose或run启动时可通过-e参数覆盖掉-->
                     <env>
+                        <cj.geochat.project.name>cj-geochat-imc-master</cj.geochat.project.name>
                         <cj.geochat.spring.profiles.active>prod</cj.geochat.spring.profiles.active>
                         <cj.geochat.EUREKA_SERVER_URL>http://geochat-ecs.local:8761/eureka</cj.geochat.EUREKA_SERVER_URL>
+                        <cj.geochat.spring.redis.db>0</cj.geochat.spring.redis.db>
+                        <cj.geochat.spring.redis.sentinel.master>local-master</cj.geochat.spring.redis.sentinel.master>
+                        <cj.geochat.spring.redis.sentinel.nodes>
+                            redis-server-master:26379,redis-server-slave-1:26379,redis-server-slave-2:26379
+                        </cj.geochat.spring.redis.sentinel.nodes>
+                        <cj.geochat.spring.redis.password>123456</cj.geochat.spring.redis.password>
                     </env>
                     <!--指定远程 docker api地址 远程仓库-->
                     <!--                    <dockerHost>http://localhost:2375</dockerHost>-->

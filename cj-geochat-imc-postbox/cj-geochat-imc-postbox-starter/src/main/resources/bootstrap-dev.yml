@@ -13,6 +13,10 @@ spring:
       label: master
   #      username:
   #      password:
+  config:
+    import:
+      - optional:kafka/kafka-dev.yml
+      - optional:mongodb/mongodb-dev.yml
 eureka:
   client:
     register-with-eureka: true  # 是否向注册中心注册自己
@@ -31,3 +35,10 @@ eureka:
     #注册中心点状态跳转到swagger
     status-page-url: http://${spring.cloud.client.ip-address}:${server.port}${server.servlet.context-path}doc.html
     hostname: ${cj.geochat.hostname:localhost}
+app:
+  test:
+    feign:
+      adapter:
+        docker:
+          soc:
+            url: geochat-ecs.local:12120

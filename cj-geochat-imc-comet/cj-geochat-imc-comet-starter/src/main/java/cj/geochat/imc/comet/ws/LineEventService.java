@@ -2,6 +2,7 @@ package cj.geochat.imc.comet.ws;
 
 import cj.geochat.imc.comet.IOnlineTableManager;
 import cj.geochat.imc.comet.IPrincipalChannelService;
+import cj.geochat.imc.comet.IReadOfflineService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +25,14 @@ public class LineEventService implements ILineEventService {
     IOnlineTableManager onlineTableManager;
     @Resource
     IPrincipalChannelService principalChannelService;
-
+    @Resource
+    IReadOfflineService readOfflineService;
     @Override
     public void online(String sessionId) {
         ICometEndpoint cometEndpoint = cometEndpointContainer.findCometEndpointBySessionId(sessionId);
         onlineTableManager.online(cometEndpoint);
         principalChannelService.online(cometEndpoint.principal());
+        readOfflineService.onread(cometEndpoint.principal());
     }
 
     @Override
