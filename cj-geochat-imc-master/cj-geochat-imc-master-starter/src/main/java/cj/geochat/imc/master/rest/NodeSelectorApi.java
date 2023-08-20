@@ -34,8 +34,8 @@ public class NodeSelectorApi implements INodeSelectorApi {
     @Override
     public String selectNode(@Parameter(description = "依据", required = true) String according) {
         String hex = DigestUtils.md2Hex(according);
-        BigInteger num = new BigInteger(hex, hex.length());
-        String selNode = nodeEndpointContainer.selectNodeName(num.intValue());
+        int num = hex.hashCode() & Integer.MAX_VALUE;
+        String selNode = nodeEndpointContainer.selectNodeName(num);
         return selNode;
     }
 }

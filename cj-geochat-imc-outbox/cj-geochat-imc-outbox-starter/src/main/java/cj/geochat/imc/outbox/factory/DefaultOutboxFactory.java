@@ -30,11 +30,11 @@ public class DefaultOutboxFactory implements IOutboxFactory {
     public void unicast(ImcFrame frame) {
         String channel = frame.channel().getChannel();
         String hex = DigestUtils.md2Hex(channel);
-        BigInteger num = new BigInteger(hex,hex.length());
-        BigInteger indexKey = num.mod(BigInteger.valueOf(outboxes.size()));
-        NewTopic topic = outboxes.get(indexKey.intValue());
-        BigInteger indexPart = num.mod(BigInteger.valueOf(outboxNumPartitions));
-        kafkaTemplate.send(topic.name(), indexPart.intValue(), channel, frame.toText());
+        int num = hex.hashCode() & Integer.MAX_VALUE;
+        int indexKey = num % outboxes.size();
+        NewTopic topic = outboxes.get(indexKey);
+        int indexPart = num % outboxNumPartitions;
+        kafkaTemplate.send(topic.name(), indexPart, channel, frame.toText());
     }
 
     @Override
@@ -43,9 +43,9 @@ public class DefaultOutboxFactory implements IOutboxFactory {
             var copy=frame.copy();
             String channel = copy.channel().getChannel();
             String hex = DigestUtils.md2Hex(channel);
-            BigInteger num = new BigInteger(hex,hex.length());
-            BigInteger indexPart = num.mod(BigInteger.valueOf(outboxNumPartitions));
-            kafkaTemplate.send(topic.name(), indexPart.intValue(), channel, copy.toText());
+            int num = hex.hashCode() & Integer.MAX_VALUE;
+            int indexPart = num % outboxNumPartitions;
+            kafkaTemplate.send(topic.name(), indexPart, channel, copy.toText());
         }
     }
 }

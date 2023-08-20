@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
+import java.util.Set;
 
 @Service
 public class DefaultOnlineTableManager implements IOnlineTableManager, InitializingBean {
+    static String _KEY_USERS = "imc:online:users";
+    static String _KEY_NODES = "imc:online:nodes";
     @Autowired
     RedisTemplate<String, String> redisTemplate;
     @Value("${spring.application.name}")
@@ -21,7 +24,12 @@ public class DefaultOnlineTableManager implements IOnlineTableManager, Initializ
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        redisTemplate.delete(String.format("imc:online:users:%s",nodeName));
+        String nodeKey=String.format("%s:%s", _KEY_NODES, nodeName);
+        Set<String> users = redisTemplate.opsForSet().members(nodeKey);
+        for (String user : users) {
+            redisTemplate.opsForHash().delete(_KEY_USERS, user);
+        }
+       redisTemplate.delete(nodeKey);
     }
 
     @Override
@@ -32,21 +40,20 @@ public class DefaultOnlineTableManager implements IOnlineTableManager, Initializ
         map.put("account", principal.getAccount());
         map.put("on-node", nodeName);
         map.put("time", System.currentTimeMillis());
-        redisTemplate.opsForHash().put(String.format("imc:online:users:%s",nodeName), principal.getName(), new Gson().toJson(map));
+        redisTemplate.opsForHash().put(_KEY_USERS, principal.getName(), new Gson().toJson(map));
+        redisTemplate.opsForSet().add(String.format("%s:%s", _KEY_NODES, nodeName), principal.getName());
     }
 
     @Override
     public void offline(ICometEndpoint cometEndpoint) {
         var principal = cometEndpoint.principal();
-        redisTemplate.opsForHash().delete(String.format("imc:online:users:%s",nodeName), principal.getName());
+        redisTemplate.opsForHash().delete(_KEY_USERS, principal.getName());
+        redisTemplate.opsForSet().remove(String.format("%s:%s", _KEY_NODES, nodeName), principal.getName());
     }
 
     @Override
     public boolean isOnline(String user) {
-        String json = (String) redisTemplate.opsForHash().get(String.format("imc:online:users:%s",nodeName), user);
-        if (!StringUtils.hasLength(json)) {
-            return false;
-        }
-        return true;
+        String json = (String) redisTemplate.opsForHash().get(_KEY_USERS, user);
+        return StringUtils.hasLength(json);
     }
 }

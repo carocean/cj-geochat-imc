@@ -19,14 +19,15 @@ public class InboxService implements IInboxService {
     NewTopic inbox;
     @Value("${inbox.topic.numPartitions}")
     int numPartitions;
-//    @Transactional
+
+    //    @Transactional
     @Override
     public void inbox(ImcFrame frame) {
         String channel = frame.channel().getChannel();
         String hex = DigestUtils.md2Hex(channel);
-        BigInteger num = new BigInteger(hex,hex.length());
-        BigInteger indexPart = num.mod(BigInteger.valueOf(numPartitions));
+        int num = hex.hashCode() & Integer.MAX_VALUE;
+        int indexPart = num % numPartitions;
         //同一channel发到同一分区上，这样保证消费者消息在同一channel中消息的顺序
-        kafkaTemplate.send(inbox.name(),indexPart.intValue(),channel, frame.toText());
+        kafkaTemplate.send(inbox.name(), indexPart, channel, frame.toText());
     }
 }
