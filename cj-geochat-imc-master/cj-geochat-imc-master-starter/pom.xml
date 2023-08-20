@@ -119,7 +119,7 @@
                         <cj.geochat.spring.redis.db>0</cj.geochat.spring.redis.db>
                         <cj.geochat.spring.redis.sentinel.master>local-master</cj.geochat.spring.redis.sentinel.master>
                         <cj.geochat.spring.redis.sentinel.nodes>
-                            redis-server-master:26379,redis-server-slave-1:26379,redis-server-slave-2:26379
+                            redis-sentinel-1:26379,redis-sentinel-2:26379,redis-sentinel-3:26379
                         </cj.geochat.spring.redis.sentinel.nodes>
                         <cj.geochat.spring.redis.password>123456</cj.geochat.spring.redis.password>
                     </env>

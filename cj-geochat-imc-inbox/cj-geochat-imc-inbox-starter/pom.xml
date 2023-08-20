@@ -116,8 +116,8 @@
                     <env>
                         <cj.geochat.project.name>cj-geochat-imc-inbox</cj.geochat.project.name>
                         <cj.geochat.spring.profiles.active>prod</cj.geochat.spring.profiles.active>
-                        <cj.geochat.EUREKA_SERVER_URL>http://geochat-ecs.local:8761/eureka</cj.geochat.EUREKA_SERVER_URL>
-                        <cj.kafka.bootstrap-servers>geochat-ecs.local:9082,geochat-ecs.local:9083,geochat-ecs.local:9084</cj.kafka.bootstrap-servers>
+                        <cj.geochat.EUREKA_SERVER_URL>http://eureka-1:8761/eureka,http://eureka-2:8761/eureka</cj.geochat.EUREKA_SERVER_URL>
+                        <cj.kafka.bootstrap-servers>kafka-1:9093,kafka-2:9093,kafka-3:9093</cj.kafka.bootstrap-servers>
                         <cj.kafka.inbox.topic.name>inbox</cj.kafka.inbox.topic.name>
                         <cj.kafka.inbox.topic.numPartitions>5</cj.kafka.inbox.topic.numPartitions>
                         <cj.kafka.inbox.topic.replicationFactor>2</cj.kafka.inbox.topic.replicationFactor>

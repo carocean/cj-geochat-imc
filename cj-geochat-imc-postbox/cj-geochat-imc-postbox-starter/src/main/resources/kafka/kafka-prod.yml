@@ -1,7 +1,7 @@
 spring:
   kafka:
     # Kafka服务器
-    bootstrap-servers: ${cj.kafka.bootstrap-servers:geochat-ecs.local:9082,geochat-ecs.local:9083,geochat-ecs.local:9084}
+    bootstrap-servers: ${cj.kafka.bootstrap-servers:kafka-1:9093,kafka-2:9093,kafka-3:9093}
     listener:
       concurrency: 5 # 指定listener 容器中的线程数，用于提高并发量
       ack-mode: manual

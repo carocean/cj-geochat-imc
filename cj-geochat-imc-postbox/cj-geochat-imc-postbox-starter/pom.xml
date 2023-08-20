@@ -124,11 +124,11 @@
                     <env>
                         <cj.geochat.project.name>cj-geochat-imc-postbox</cj.geochat.project.name>
                         <cj.geochat.spring.profiles.active>prod</cj.geochat.spring.profiles.active>
-                        <cj.geochat.EUREKA_SERVER_URL>http://geochat-ecs.local:8761/eureka
+                        <cj.geochat.EUREKA_SERVER_URL>http://eureka-1:8761/eureka,http://eureka-2:8761/eureka
                         </cj.geochat.EUREKA_SERVER_URL>
-                        <cj.geochat.MONGODB_URL>mongodb://superadmin:123456@geochat-ecs.local:27017/soc
+                        <cj.geochat.MONGODB_URL>mongodb://superadmin:123456@mongo:27017/soc
                         </cj.geochat.MONGODB_URL>
-                        <cj.kafka.bootstrap-servers>geochat-ecs.local:9082,geochat-ecs.local:9083,geochat-ecs.local:9084</cj.kafka.bootstrap-servers>
+                        <cj.kafka.bootstrap-servers>kafka-1:9093,kafka-2:9093,kafka-3:9093</cj.kafka.bootstrap-servers>
                         <cj.kafka.topic-config.numPartitions>5</cj.kafka.topic-config.numPartitions>
                         <cj.kafka.topic-config.replicationFactor>2</cj.kafka.topic-config.replicationFactor>
                         <cj.kafka.consumer.event>event</cj.kafka.consumer.event>

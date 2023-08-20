@@ -3,4 +3,4 @@ spring:
     mongodb:
       authentication-database: admin
       #db.createUser({"user":"superadmin","pwd":"123456","roles":[{"role":"readWrite","db":"soc"}]});
-      uri: ${cj.geochat.MONGODB_URL:mongodb://superadmin:123456@geochat-ecs.local:27017/soc}
+      uri: ${cj.geochat.MONGODB_URL:mongodb://superadmin:123456@mongo:27017/soc}

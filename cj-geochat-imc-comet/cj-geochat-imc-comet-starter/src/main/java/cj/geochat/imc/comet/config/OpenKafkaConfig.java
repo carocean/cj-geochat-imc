@@ -50,7 +50,7 @@ public class OpenKafkaConfig {
             ConcurrentKafkaListenerContainerFactory<String, String> factory,
             ConfigurableApplicationContext applicationContext) {
         List<ConcurrentMessageListenerContainer<String, String>> containers = new ArrayList<>();
-        String group = "outbox-0-" + UlidCreator.getUlid().toLowerCase() + "_group";
+        String group = outboxTopicName+"-" + UlidCreator.getUlid().toLowerCase() + "-group";
         ConcurrentMessageListenerContainer<String, String> container = factory.createContainer(outboxTopicName);
         container.getContainerProperties().setMessageListener(new OutboxConsumer(applicationContext));
         container.getContainerProperties().setGroupId(group);
