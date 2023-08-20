@@ -44,4 +44,8 @@ comet:
     name: ${cj.kafka.comet.event-topic.name:event}
     numPartitions: ${cj.kafka.comet.event-topic.numPartitions:5}
     replicationFactor: ${cj.kafka.comet.event-topic.replicationFactor:2}
-  connect-outbox-topic: ${cj.kafka.comet.connect-outbox-topic:outbox-0}
+  connect-outbox-topic:
+    name: ${cj.kafka.comet.connect-outbox-topic.name:outbox-0}
+    #一个comet只能消费一个outbox，但多个comet可以消费同一个outbox，若此，每个comet的组序号不同相同，否则会导致一些comet上的用户收不到消息。
+    #原因是需要广播，如果组序号相同则是单播，会导致在comet上的用户收不到该来的消息。
+    group-index: ${cj.kafka.comet.connect-outbox-topic.group-index:0}

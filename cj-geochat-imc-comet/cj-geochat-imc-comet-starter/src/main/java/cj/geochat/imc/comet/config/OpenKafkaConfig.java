@@ -32,9 +32,10 @@ public class OpenKafkaConfig {
     @Value("${comet.event-topic.replicationFactor}")
     short eventReplicationFactor;
 
-    @Value("${comet.connect-outbox-topic}")
+    @Value("${comet.connect-outbox-topic.name}")
     String outboxTopicName;
-
+    @Value("${comet.connect-outbox-topic.group-index}")
+    String outboxTopicGroupIndex;
     @Bean
     public NewTopic offline() {
         return new NewTopic(offlineTopicName, offlineNumPartitions, offlineReplicationFactor);
@@ -50,7 +51,7 @@ public class OpenKafkaConfig {
             ConcurrentKafkaListenerContainerFactory<String, String> factory,
             ConfigurableApplicationContext applicationContext) {
         List<ConcurrentMessageListenerContainer<String, String>> containers = new ArrayList<>();
-        String group = outboxTopicName+"-" + UlidCreator.getUlid().toLowerCase() + "-group";
+        String group = outboxTopicName+"-"+outboxTopicGroupIndex+"-group";
         ConcurrentMessageListenerContainer<String, String> container = factory.createContainer(outboxTopicName);
         container.getContainerProperties().setMessageListener(new OutboxConsumer(applicationContext));
         container.getContainerProperties().setGroupId(group);

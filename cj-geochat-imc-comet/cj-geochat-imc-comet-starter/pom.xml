@@ -157,7 +157,8 @@
                         <cj.kafka.comet.event-topic.name>event</cj.kafka.comet.event-topic.name>
                         <cj.kafka.comet.event-topic.numPartitions>5</cj.kafka.comet.event-topic.numPartitions>
                         <cj.kafka.comet.event-topic.replicationFactor>2</cj.kafka.comet.event-topic.replicationFactor>
-                        <cj.kafka.comet.connect-outbox-topic>outbox-0</cj.kafka.comet.connect-outbox-topic>
+                        <cj.kafka.comet.connect-outbox-topic.name>outbox-0</cj.kafka.comet.connect-outbox-topic.name>
+                        <cj.kafka.comet.connect-outbox-topic.group-index>0</cj.kafka.comet.connect-outbox-topic.group-index>
                     </env>
                     <!--指定远程 docker api地址 远程仓库-->
                     <!--                    <dockerHost>http://localhost:2375</dockerHost>-->
